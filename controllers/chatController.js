@@ -3,7 +3,7 @@ const { Conversation, Message } = require('../models/Conversation');
 
 exports.getConvo = async (req, res) => {
   try {
-    const conversation = await Conversation.findOne(req.params.id).populate({
+    const conversation = await Conversation.findByID(req.params.id).populate({
       path: 'messages',
       populate: { path: 'sender', model: 'User', select: 'username name' },
     });
