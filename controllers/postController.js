@@ -5,7 +5,7 @@ exports.createPost = async (req, res) => {
     const { content } = req.body;
     const newPost = {
       content,
-      postedBy: req.decoded._id,
+      postedBy: req.decoded.id,
     };
     const post = await new Post(newPost).save();
     res.json(post);
@@ -17,7 +17,7 @@ exports.createPost = async (req, res) => {
 exports.readPost = async (req, res) => {
   try {
     const id = req.params.id;
-    const post = await Post.findOne({ id });
+    const post = await Post.findById(id);
     if (!post) {
       res.status(400).json({ msg: 'Post does not exist' });
     }
@@ -29,7 +29,7 @@ exports.readPost = async (req, res) => {
 exports.deletePost = async (req, res) => {
   try {
     const id = req.params.id;
-    const post = await Post.findOne({ id });
+    const post = await Post.findById(id);
     if (!post) {
       res.status(400).json({ msg: 'Post does not exist' });
     }
@@ -44,7 +44,7 @@ exports.updatePost = async (req, res) => {
   try {
     const { newContent } = req.body;
     const id = req.params.id;
-    const post = await Post.findOne({ id });
+    const post = await Post.findById(id);
     if (!post) {
       res.status(400).json({ msg: 'Post does not exist' });
     }
