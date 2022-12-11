@@ -10,7 +10,7 @@ exports.getConvo = async (req, res) => {
     if (!conversation) {
       res.status(404).send({ msg: 'Conversation not found' });
     } else {
-      if (conversation.participants.includes(req.decoded._id)) {
+      if (conversation.participants.includes(req.decoded.id)) {
         res.send({ conversation });
       } else {
         res.status(401).send({ msg: 'Unauthorized access' });
